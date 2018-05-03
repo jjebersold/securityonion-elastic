@@ -51,7 +51,7 @@ for table_name in `$MYSQL -Dsyslog_data -e 'show tables where Tables_in_syslog_d
 		#class_name=`$MYSQL -Dsyslog -e "select class from classes where id = $class_id;" | sed 's|BRO_||g' | tr '[:upper:]' '[:lower:]'`
 		class_name=`$MYSQL -Dsyslog -e "select class from classes where id = $class_id;" | tr '[:upper:]' '[:lower:]'`
 		echo "Processing class $class_name"
-		$MYSQL -Dsyslog_data -e "select msg from syslogs_index_1 where class_id = $class_id;" | sed 's/|/\t/g' >> $class_name.log
+		$MYSQL -Dsyslog_data -e "select msg from $table_name where class_id = $class_id;" | sed 's/|/\t/g' >> $class_name.log
 	done
 done
 
